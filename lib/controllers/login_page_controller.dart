@@ -40,9 +40,10 @@ class LoginPageController extends GetxController {
     _emailAddressInputError.value = null;
     _passwordInputError.value = null;
 
-    final String emailAddress = emailAddressInputController.text;
+    final String emailAddress = emailAddressInputController.text.trim();
+    final String password = passwordInputController.text.trim();
+
     bool isEmailAddressValid = false;
-    final String password = passwordInputController.text;
     bool isPasswordValid = false;
 
     if (emailAddress.isEmpty) {
