@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:supabase_otp_register/controllers/login_page_controller.dart';
+import 'package:supabase_otp_register/pages/login_page.dart';
 
 class RegisterPageController extends GetxController {
   final Rx<bool> _isFormLoading = Rx<bool>(false);
@@ -78,5 +80,9 @@ class RegisterPageController extends GetxController {
     }
 
     return isFullNameValid && isEmailAddressValid && isPasswordValid;
+  }
+
+  void onLoginButtonPressed() {
+    Get.off(() => const LoginPage());
   }
 }
