@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:supabase_otp_register/config/supabase.dart' show url, anonKey;
 import 'package:supabase_otp_register/pages/login_page.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(url: url, anonKey: anonKey);
 
   runApp(const App());
 }
