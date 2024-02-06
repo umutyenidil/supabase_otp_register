@@ -9,6 +9,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     LoginPageController controller = Get.put(LoginPageController());
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Login Page'),
         centerTitle: true,

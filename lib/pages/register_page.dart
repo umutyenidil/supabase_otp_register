@@ -9,6 +9,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     RegisterPageController controller = Get.put(RegisterPageController());
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('Register Page'),
         centerTitle: true,
