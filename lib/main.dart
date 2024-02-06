@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:supabase_otp_register/config/supabase.dart' show url, anonKey;
 import 'package:supabase_otp_register/pages/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_otp_register/pages/otp_verification_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

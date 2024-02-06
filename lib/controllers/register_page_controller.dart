@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:supabase_otp_register/controllers/login_page_controller.dart';
+import 'package:supabase_otp_register/controllers/otp_verification_page_controller.dart';
 import 'package:supabase_otp_register/pages/login_page.dart';
+import 'package:supabase_otp_register/pages/otp_verification_page.dart';
 
 class RegisterPageController extends GetxController {
   final Rx<bool> _isFormLoading = Rx<bool>(false);
@@ -33,9 +38,40 @@ class RegisterPageController extends GetxController {
 
     try {
       _isFormLoading.value = true;
-      await Future.delayed(const Duration(milliseconds: 1250));
+
+      final String fullName = fullNameInputController.text.trim();
+      final String emailAddress = emailAddressInputController.text.trim();
+      final String password = passwordInputController.text.trim();
+
+      final AuthResponse authResponse = await Supabase.instance.client.auth.signUp(
+        email: emailAddress,
+        password: password,
+      );
+
+      print('authResponse geldi');
+      print(authResponse.session);
+      print(authResponse.user!.id);
+
+      await Supabase.instance.client.from('user_details').insert({
+        'user_id': authResponse.user!.id,
+        'full_name': fullName,
+      });
+
+
+      Get.off(() => const OTPVerificationPage(), arguments: {'emailAddress': emailAddress});
+
+    } on AuthException catch (authException) {
+      Get.snackbar(
+        authException.statusCode ?? 'Something went wrong',
+        authException.message,
+        isDismissible: true,
+        snackPosition: SnackPosition.BOTTOM,
+        borderRadius: 0.0,
+        margin: EdgeInsets.zero,
+      );
     } catch (exception) {
-      print('exception');
+      print('exception geldi');
+      print(exception);
     } finally {
       _isFormLoading.value = false;
       fullNameInputController.clear();
